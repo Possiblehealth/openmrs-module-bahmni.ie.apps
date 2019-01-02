@@ -31,6 +31,7 @@ public class BahmniFormTranslationServiceImpl extends BaseOpenmrsService impleme
     private static final String DEFAULT_FORM_TRANSLATIONS_PATH = "/var/www/bahmni_config/openmrs/apps/forms/translations";
     private final String CONCEPT_TRANS_KEY_PATTERN = "_[0-9]+$";
     private final String DESC_TRANS_KEY_PATTERN = "_[0-9]+_DESC$";
+    private final String UTF_EIGHT_VALUE = "UTF-8";
 
     @Override
     public List<FormTranslation> getFormTranslations(String formName, String formVersion, String locale) {
@@ -124,7 +125,7 @@ public class BahmniFormTranslationServiceImpl extends BaseOpenmrsService impleme
 
     private void saveTranslationsToFile(JSONObject translationsJson, File translationFile) {
         try {
-            FileUtils.writeStringToFile(translationFile, translationsJson.toString());
+            FileUtils.writeStringToFile(translationFile, translationsJson.toString(), UTF_EIGHT_VALUE);
         } catch (IOException e) {
             e.printStackTrace();
             throw new APIException(e.getMessage(), e);
@@ -173,7 +174,7 @@ public class BahmniFormTranslationServiceImpl extends BaseOpenmrsService impleme
     private JSONObject getTranslations(File translationFile) {
         String fileContent;
         try {
-            fileContent = translationFile.exists() ? FileUtils.readFileToString(translationFile) : "";
+            fileContent = translationFile.exists() ? FileUtils.readFileToString(translationFile, UTF_EIGHT_VALUE) : "";
         } catch (IOException e) {
             e.printStackTrace();
             throw new APIException(e.getMessage(), e);

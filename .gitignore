@@ -17,3 +17,8 @@ target/
 
 api/*.txt
 .DS_STORE
+
+#IDE files
+*.project*
+*.classpath*
+*.settings*
